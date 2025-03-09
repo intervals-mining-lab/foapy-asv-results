@@ -1,0 +1,429 @@
+{
+    "bench_alphabet.AlphabetSuite.peakmem_alphabet": {
+        "code": "class AlphabetSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def peakmem_alphabet(self, length, case):\n        return alphabet(self.data)\n\n    def setup(self, length, case):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        elif case == \"Worst\":\n            self.data = worst_case(length)",
+        "name": "bench_alphabet.AlphabetSuite.peakmem_alphabet",
+        "param_names": [
+            "length",
+            "case"
+        ],
+        "params": [
+            [
+                "5",
+                "50",
+                "500",
+                "5000",
+                "50000",
+                "500000",
+                "5000000",
+                "50000000"
+            ],
+            [
+                "'Best'",
+                "'DNA'",
+                "'Normal'",
+                "'Worst'"
+            ]
+        ],
+        "type": "peakmemory",
+        "unit": "bytes",
+        "version": "463b1c9c8d98e579489ab8237252f666a0252bb221e3700c1d86ec1e981f36bb"
+    },
+    "bench_alphabet.AlphabetSuite.time_alphabet": {
+        "code": "class AlphabetSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def time_alphabet(self, length, case):\n        alphabet(self.data)\n\n    def setup(self, length, case):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        elif case == \"Worst\":\n            self.data = worst_case(length)",
+        "min_run_count": 2,
+        "name": "bench_alphabet.AlphabetSuite.time_alphabet",
+        "number": 0,
+        "param_names": [
+            "length",
+            "case"
+        ],
+        "params": [
+            [
+                "5",
+                "50",
+                "500",
+                "5000",
+                "50000",
+                "500000",
+                "5000000",
+                "50000000"
+            ],
+            [
+                "'Best'",
+                "'DNA'",
+                "'Normal'",
+                "'Worst'"
+            ]
+        ],
+        "repeat": 0,
+        "rounds": 2,
+        "sample_time": 0.01,
+        "type": "time",
+        "unit": "seconds",
+        "version": "3c996c04e73bb47e942a0b0f63685b68f97629ec6b986709b8eb327d6e4d246e",
+        "warmup_time": -1
+    },
+    "bench_intervals.IntervalsSuite.peakmem_intervals": {
+        "code": "class IntervalsSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def peakmem_intervals(self, length, case, binding, mode):\n        return intervals(self.data, self.binding, self.mode)\n\n    def setup(self, length, case, binding, mode):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        elif case == \"Worst\":\n            self.data = worst_case(length)\n        self.mode = mode\n        self.binding = binding",
+        "name": "bench_intervals.IntervalsSuite.peakmem_intervals",
+        "param_names": [
+            "length",
+            "case",
+            "binding",
+            "mode"
+        ],
+        "params": [
+            [
+                "5",
+                "50",
+                "500",
+                "5000",
+                "50000",
+                "500000",
+                "5000000",
+                "50000000"
+            ],
+            [
+                "'Best'",
+                "'DNA'",
+                "'Normal'",
+                "'Worst'"
+            ],
+            [
+                "1",
+                "2"
+            ],
+            [
+                "1",
+                "2",
+                "3",
+                "4"
+            ]
+        ],
+        "timeout": 600,
+        "type": "peakmemory",
+        "unit": "bytes",
+        "version": "cdfbe702e4fc9f5ed74743bb6d8813258ea3aea30a6a7b0eea742b144c71d9a2"
+    },
+    "bench_intervals.IntervalsSuite.time_intervals": {
+        "code": "class IntervalsSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def time_intervals(self, length, case, binding, mode):\n        intervals(self.data, self.binding, self.mode)\n\n    def setup(self, length, case, binding, mode):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        elif case == \"Worst\":\n            self.data = worst_case(length)\n        self.mode = mode\n        self.binding = binding",
+        "min_run_count": 2,
+        "name": "bench_intervals.IntervalsSuite.time_intervals",
+        "number": 0,
+        "param_names": [
+            "length",
+            "case",
+            "binding",
+            "mode"
+        ],
+        "params": [
+            [
+                "5",
+                "50",
+                "500",
+                "5000",
+                "50000",
+                "500000",
+                "5000000",
+                "50000000"
+            ],
+            [
+                "'Best'",
+                "'DNA'",
+                "'Normal'",
+                "'Worst'"
+            ],
+            [
+                "1",
+                "2"
+            ],
+            [
+                "1",
+                "2",
+                "3",
+                "4"
+            ]
+        ],
+        "repeat": 0,
+        "rounds": 2,
+        "sample_time": 0.01,
+        "timeout": 600,
+        "type": "time",
+        "unit": "seconds",
+        "version": "88a6ddabdce77504c2e9faa2c6f06acd4d47b956c7e573d26dda918f8efeb559",
+        "warmup_time": -1
+    },
+    "bench_ma_alphabet.MaAlphabetSuite.peakmem_alphabet": {
+        "code": "class MaAlphabetSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def peakmem_alphabet(self, length, case):\n        return alphabet(self.data)\n\n    def setup(self, length, case):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        elif case == \"Worst\":\n            self.data = worst_case(length)",
+        "name": "bench_ma_alphabet.MaAlphabetSuite.peakmem_alphabet",
+        "param_names": [
+            "length",
+            "case"
+        ],
+        "params": [
+            [
+                "5",
+                "50",
+                "500",
+                "5000",
+                "50000",
+                "500000",
+                "5000000",
+                "50000000"
+            ],
+            [
+                "'Best'",
+                "'DNA'",
+                "'Normal'",
+                "'Worst'"
+            ]
+        ],
+        "type": "peakmemory",
+        "unit": "bytes",
+        "version": "6e5e510a52e8d21c72d7ca2d726d6dd589b42a2acb42911270a0b72914790609"
+    },
+    "bench_ma_alphabet.MaAlphabetSuite.time_alphabet": {
+        "code": "class MaAlphabetSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def time_alphabet(self, length, case):\n        alphabet(self.data)\n\n    def setup(self, length, case):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        elif case == \"Worst\":\n            self.data = worst_case(length)",
+        "min_run_count": 2,
+        "name": "bench_ma_alphabet.MaAlphabetSuite.time_alphabet",
+        "number": 0,
+        "param_names": [
+            "length",
+            "case"
+        ],
+        "params": [
+            [
+                "5",
+                "50",
+                "500",
+                "5000",
+                "50000",
+                "500000",
+                "5000000",
+                "50000000"
+            ],
+            [
+                "'Best'",
+                "'DNA'",
+                "'Normal'",
+                "'Worst'"
+            ]
+        ],
+        "repeat": 0,
+        "rounds": 2,
+        "sample_time": 0.01,
+        "type": "time",
+        "unit": "seconds",
+        "version": "ab88f8572fb327c6c31ca3c0814653ab762ad5776a477b8a998ef33ccce5f1dd",
+        "warmup_time": -1
+    },
+    "bench_ma_intervals.MaIntervalsSuite.peakmem_intervals": {
+        "code": "class MaIntervalsSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def peakmem_intervals(self, length, case, binding, mode):\n        return intervals(self.data, self.binding, self.mode)\n\n    def setup(self, length, case, binding, mode):\n        if case == \"Best\":\n            self.data = order(best_case(length))\n        elif case == \"DNA\":\n            self.data = order(dna_case(length))\n        elif case == \"Normal\":\n            self.data = order(normal_case(length))\n        elif case == \"Worst\":\n            self.data = order(worst_case(length))\n        self.mode = mode\n        self.binding = binding",
+        "name": "bench_ma_intervals.MaIntervalsSuite.peakmem_intervals",
+        "param_names": [
+            "length",
+            "case",
+            "binding",
+            "mode"
+        ],
+        "params": [
+            [
+                "5",
+                "50",
+                "500"
+            ],
+            [
+                "'Best'",
+                "'DNA'",
+                "'Normal'",
+                "'Worst'"
+            ],
+            [
+                "1",
+                "2"
+            ],
+            [
+                "1",
+                "2",
+                "3",
+                "4"
+            ]
+        ],
+        "type": "peakmemory",
+        "unit": "bytes",
+        "version": "749267a53459bb7c11be23b1e017c910501fb9fc320e806f2a0c0455b864a133"
+    },
+    "bench_ma_intervals.MaIntervalsSuite.time_intervals": {
+        "code": "class MaIntervalsSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def time_intervals(self, length, case, binding, mode):\n        intervals(self.data, self.binding, self.mode)\n\n    def setup(self, length, case, binding, mode):\n        if case == \"Best\":\n            self.data = order(best_case(length))\n        elif case == \"DNA\":\n            self.data = order(dna_case(length))\n        elif case == \"Normal\":\n            self.data = order(normal_case(length))\n        elif case == \"Worst\":\n            self.data = order(worst_case(length))\n        self.mode = mode\n        self.binding = binding",
+        "min_run_count": 2,
+        "name": "bench_ma_intervals.MaIntervalsSuite.time_intervals",
+        "number": 0,
+        "param_names": [
+            "length",
+            "case",
+            "binding",
+            "mode"
+        ],
+        "params": [
+            [
+                "5",
+                "50",
+                "500"
+            ],
+            [
+                "'Best'",
+                "'DNA'",
+                "'Normal'",
+                "'Worst'"
+            ],
+            [
+                "1",
+                "2"
+            ],
+            [
+                "1",
+                "2",
+                "3",
+                "4"
+            ]
+        ],
+        "repeat": 0,
+        "rounds": 2,
+        "sample_time": 0.01,
+        "type": "time",
+        "unit": "seconds",
+        "version": "b4e3235699185c220b989971f4f831555ea8fe3a332dc2a7ed38ce4fbb58063a",
+        "warmup_time": -1
+    },
+    "bench_ma_order.MaOrderSuite.peakmem_order": {
+        "code": "class MaOrderSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def peakmem_order(self, length, case):\n        return order(self.data)\n\n    def setup(self, length, case):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        elif case == \"Worst\":\n            self.data = worst_case(length)",
+        "name": "bench_ma_order.MaOrderSuite.peakmem_order",
+        "param_names": [
+            "length",
+            "case"
+        ],
+        "params": [
+            [
+                "5",
+                "50",
+                "500",
+                "5000",
+                "50000",
+                "500000",
+                "5000000",
+                "50000000"
+            ],
+            [
+                "'Best'",
+                "'DNA'",
+                "'Normal'",
+                "'Worst'"
+            ]
+        ],
+        "type": "peakmemory",
+        "unit": "bytes",
+        "version": "c6301f9d459e943b65197043631559919d11ab43e4271b87b8e77d8011924e37"
+    },
+    "bench_ma_order.MaOrderSuite.time_order": {
+        "code": "class MaOrderSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def time_order(self, length, case):\n        order(self.data)\n\n    def setup(self, length, case):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        elif case == \"Worst\":\n            self.data = worst_case(length)",
+        "min_run_count": 2,
+        "name": "bench_ma_order.MaOrderSuite.time_order",
+        "number": 0,
+        "param_names": [
+            "length",
+            "case"
+        ],
+        "params": [
+            [
+                "5",
+                "50",
+                "500",
+                "5000",
+                "50000",
+                "500000",
+                "5000000",
+                "50000000"
+            ],
+            [
+                "'Best'",
+                "'DNA'",
+                "'Normal'",
+                "'Worst'"
+            ]
+        ],
+        "repeat": 0,
+        "rounds": 2,
+        "sample_time": 0.01,
+        "type": "time",
+        "unit": "seconds",
+        "version": "5e4d982f76f473860f0d4ab8fe6f909c8a6f27e1142b69b5fc25dcd507a389fb",
+        "warmup_time": -1
+    },
+    "bench_order.OrderSuite.peakmem_order": {
+        "code": "class OrderSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def peakmem_order(self, length, case):\n        return order(self.data)\n\n    def setup(self, length, case):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        elif case == \"Worst\":\n            self.data = worst_case(length)",
+        "name": "bench_order.OrderSuite.peakmem_order",
+        "param_names": [
+            "length",
+            "case"
+        ],
+        "params": [
+            [
+                "5",
+                "50",
+                "500",
+                "5000",
+                "50000",
+                "500000",
+                "5000000",
+                "50000000"
+            ],
+            [
+                "'Best'",
+                "'DNA'",
+                "'Normal'",
+                "'Worst'"
+            ]
+        ],
+        "timeout": 600,
+        "type": "peakmemory",
+        "unit": "bytes",
+        "version": "13f7bc1acac53509a5c760dc26174ec96dc6cc7a7829211e16a0718700cf2e65"
+    },
+    "bench_order.OrderSuite.time_order": {
+        "code": "class OrderSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def time_order(self, length, case):\n        order(self.data)\n\n    def setup(self, length, case):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        elif case == \"Worst\":\n            self.data = worst_case(length)",
+        "min_run_count": 2,
+        "name": "bench_order.OrderSuite.time_order",
+        "number": 0,
+        "param_names": [
+            "length",
+            "case"
+        ],
+        "params": [
+            [
+                "5",
+                "50",
+                "500",
+                "5000",
+                "50000",
+                "500000",
+                "5000000",
+                "50000000"
+            ],
+            [
+                "'Best'",
+                "'DNA'",
+                "'Normal'",
+                "'Worst'"
+            ]
+        ],
+        "repeat": 0,
+        "rounds": 2,
+        "sample_time": 0.01,
+        "timeout": 600,
+        "type": "time",
+        "unit": "seconds",
+        "version": "2d50c8901642ed79989dc1d3e0e555bf76ae10438357fbbf9c6f8bf064d00bcc",
+        "warmup_time": -1
+    },
+    "version": 2
+}
