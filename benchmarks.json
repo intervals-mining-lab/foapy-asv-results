@@ -64,7 +64,7 @@
         "warmup_time": -1
     },
     "bench_intervals.IntervalsSuite.peakmem_intervals": {
-        "code": "class IntervalsSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def peakmem_intervals(self, length, case, binding, mode):\n        return intervals(self.data, self.binding, self.mode)\n\n    def setup(self, length, case, binding, mode):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        elif case == \"Worst\":\n            self.data = worst_case(length)\n        self.mode = mode\n        self.binding = binding",
+        "code": "class IntervalsSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def peakmem_intervals(self, length, case, binding_int, mode_int):\n        return intervals_tuple(\n            intervals_chain(self.data, self.binding_val, self.chain_mode_val),\n            self.binding_val,\n            self.tuple_mode_val,\n        )\n\n    def setup(self, length, case, binding_int, mode_int):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        elif case == \"Worst\":\n            self.data = worst_case(length)\n        self.binding_val = binding_int\n        self.chain_mode_val = _CHAIN_MODE[mode_int]\n        self.tuple_mode_val = _TUPLE_MODE[mode_int]",
         "name": "bench_intervals.IntervalsSuite.peakmem_intervals",
         "param_names": [
             "length",
@@ -103,10 +103,10 @@
         "timeout": 600,
         "type": "peakmemory",
         "unit": "bytes",
-        "version": "cdfbe702e4fc9f5ed74743bb6d8813258ea3aea30a6a7b0eea742b144c71d9a2"
+        "version": "6e9e9c00e3ea7be2b251d60c9ed4f6102ba7001c8f5e559c8b335ffd265ae0e8"
     },
     "bench_intervals.IntervalsSuite.time_intervals": {
-        "code": "class IntervalsSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def time_intervals(self, length, case, binding, mode):\n        intervals(self.data, self.binding, self.mode)\n\n    def setup(self, length, case, binding, mode):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        elif case == \"Worst\":\n            self.data = worst_case(length)\n        self.mode = mode\n        self.binding = binding",
+        "code": "class IntervalsSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def time_intervals(self, length, case, binding_int, mode_int):\n        intervals_tuple(\n            intervals_chain(self.data, self.binding_val, self.chain_mode_val),\n            self.binding_val,\n            self.tuple_mode_val,\n        )\n\n    def setup(self, length, case, binding_int, mode_int):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        elif case == \"Worst\":\n            self.data = worst_case(length)\n        self.binding_val = binding_int\n        self.chain_mode_val = _CHAIN_MODE[mode_int]\n        self.tuple_mode_val = _TUPLE_MODE[mode_int]",
         "min_run_count": 2,
         "name": "bench_intervals.IntervalsSuite.time_intervals",
         "number": 0,
@@ -150,7 +150,7 @@
         "timeout": 600,
         "type": "time",
         "unit": "seconds",
-        "version": "88a6ddabdce77504c2e9faa2c6f06acd4d47b956c7e573d26dda918f8efeb559",
+        "version": "82bf8f749474dd3ee043bd013bf41ed6d76c8e34043ed906e79105d56ba8c7db",
         "warmup_time": -1
     },
     "bench_intervals_chain.IntervalsChainSuite.peakmem_intervals_chain": {
@@ -418,7 +418,7 @@
         "warmup_time": -1
     },
     "bench_ma_intervals.MaIntervalsSuite.peakmem_intervals": {
-        "code": "class MaIntervalsSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def peakmem_intervals(self, length, case, binding, mode):\n        return intervals(self.data, self.binding, self.mode)\n\n    def setup(self, length, case, binding, mode):\n        if case == \"Best\":\n            self.data = order(best_case(length))\n        elif case == \"DNA\":\n            self.data = order(dna_case(length))\n        elif case == \"Normal\":\n            self.data = order(normal_case(length))\n        elif case == \"Worst\":\n            self.data = order(worst_case(length))\n        self.mode = mode\n        self.binding = binding",
+        "code": "class MaIntervalsSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def peakmem_intervals(self, length, case, binding_int, mode_int):\n        return intervals_tuple(\n            intervals_chain(self.data, self.binding_val, self.chain_mode_val),\n            self.binding_val,\n            self.tuple_mode_val,\n        )\n\n    def setup(self, length, case, binding_int, mode_int):\n        if case == \"Best\":\n            self.data = order(best_case(length))\n        elif case == \"DNA\":\n            self.data = order(dna_case(length))\n        elif case == \"Normal\":\n            self.data = order(normal_case(length))\n        elif case == \"Worst\":\n            self.data = order(worst_case(length))\n        self.binding_val = binding_int\n        self.chain_mode_val = _CHAIN_MODE[mode_int]\n        self.tuple_mode_val = _TUPLE_MODE[mode_int]",
         "name": "bench_ma_intervals.MaIntervalsSuite.peakmem_intervals",
         "param_names": [
             "length",
@@ -451,10 +451,10 @@
         ],
         "type": "peakmemory",
         "unit": "bytes",
-        "version": "749267a53459bb7c11be23b1e017c910501fb9fc320e806f2a0c0455b864a133"
+        "version": "5bbbac313427a02863b5c52d30c8ccf4868ddbe3b6700d03852cd32598646802"
     },
     "bench_ma_intervals.MaIntervalsSuite.time_intervals": {
-        "code": "class MaIntervalsSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def time_intervals(self, length, case, binding, mode):\n        intervals(self.data, self.binding, self.mode)\n\n    def setup(self, length, case, binding, mode):\n        if case == \"Best\":\n            self.data = order(best_case(length))\n        elif case == \"DNA\":\n            self.data = order(dna_case(length))\n        elif case == \"Normal\":\n            self.data = order(normal_case(length))\n        elif case == \"Worst\":\n            self.data = order(worst_case(length))\n        self.mode = mode\n        self.binding = binding",
+        "code": "class MaIntervalsSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def time_intervals(self, length, case, binding_int, mode_int):\n        intervals_tuple(\n            intervals_chain(self.data, self.binding_val, self.chain_mode_val),\n            self.binding_val,\n            self.tuple_mode_val,\n        )\n\n    def setup(self, length, case, binding_int, mode_int):\n        if case == \"Best\":\n            self.data = order(best_case(length))\n        elif case == \"DNA\":\n            self.data = order(dna_case(length))\n        elif case == \"Normal\":\n            self.data = order(normal_case(length))\n        elif case == \"Worst\":\n            self.data = order(worst_case(length))\n        self.binding_val = binding_int\n        self.chain_mode_val = _CHAIN_MODE[mode_int]\n        self.tuple_mode_val = _TUPLE_MODE[mode_int]",
         "min_run_count": 2,
         "name": "bench_ma_intervals.MaIntervalsSuite.time_intervals",
         "number": 0,
@@ -492,7 +492,7 @@
         "sample_time": 0.01,
         "type": "time",
         "unit": "seconds",
-        "version": "b4e3235699185c220b989971f4f831555ea8fe3a332dc2a7ed38ce4fbb58063a",
+        "version": "1bccb1b19273e4e6890281068d9cc6568729724a7e09fa8b223ad5cbcf4979b4",
         "warmup_time": -1
     },
     "bench_ma_order.MaOrderSuite.peakmem_order": {
@@ -626,7 +626,7 @@
         "warmup_time": -1
     },
     "bench_pipeline_full.PipelineFullSuite.peakmem_pipeline_full": {
-        "code": "class PipelineFullSuite:\n    def peakmem_pipeline_full(self, length, case):\n        chain = intervals_chain(self.data, binding.start, chain_mode.boundary)\n        result = intervals_tuple(chain, tuple_mode.normal)\n        return intervals_distribution(result)\n\n    def setup(self, length, case):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        else:\n            self.data = worst_case(length)",
+        "code": "class PipelineFullSuite:\n    def peakmem_pipeline_full(self, length, case):\n        chain = intervals_chain(self.data, binding.start, chain_mode.boundary)\n        result = intervals_tuple(chain, binding.start, tuple_mode.normal)\n        return intervals_distribution(result)\n\n    def setup(self, length, case):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        else:\n            self.data = worst_case(length)",
         "name": "bench_pipeline_full.PipelineFullSuite.peakmem_pipeline_full",
         "param_names": [
             "length",
@@ -648,10 +648,10 @@
         "timeout": 600,
         "type": "peakmemory",
         "unit": "bytes",
-        "version": "bd3963c86d8d55b4746fde7bda567a2dfa8f222c996c00fff3485364194887dc"
+        "version": "d526c3677cb1577000c1e6f265e34b13ae7f70f95a36c61f7ee47d0d60803b1d"
     },
     "bench_pipeline_full.PipelineFullSuite.time_pipeline_full": {
-        "code": "class PipelineFullSuite:\n    def time_pipeline_full(self, length, case):\n        chain = intervals_chain(self.data, binding.start, chain_mode.boundary)\n        result = intervals_tuple(chain, tuple_mode.normal)\n        intervals_distribution(result)\n\n    def setup(self, length, case):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        else:\n            self.data = worst_case(length)",
+        "code": "class PipelineFullSuite:\n    def time_pipeline_full(self, length, case):\n        chain = intervals_chain(self.data, binding.start, chain_mode.boundary)\n        result = intervals_tuple(chain, binding.start, tuple_mode.normal)\n        intervals_distribution(result)\n\n    def setup(self, length, case):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        else:\n            self.data = worst_case(length)",
         "min_run_count": 2,
         "name": "bench_pipeline_full.PipelineFullSuite.time_pipeline_full",
         "number": 0,
@@ -678,7 +678,7 @@
         "timeout": 600,
         "type": "time",
         "unit": "seconds",
-        "version": "48ed9aeb56d08cb9ed7b4251299490bb6a75a69d61be60a322faf9c0c2cb2a57",
+        "version": "cbfdad4439df2fc0373d8e9fa7e6c0e74fa13f53a145626403e6b2c41b7352c4",
         "warmup_time": -1
     },
     "version": 2
