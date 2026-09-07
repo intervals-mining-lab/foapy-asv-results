@@ -64,7 +64,7 @@
         "warmup_time": -1
     },
     "bench_congenerics_intervals_chains.CongenericsIntervalsChainsSuite.peakmem_intervals_chains": {
-        "code": "class CongenericsIntervalsChainsSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def peakmem_intervals_chains(self, length, case, binding, chain_mode):\n        return intervals_chains(self.data, self.binding, self.chain_mode)\n\n    def setup(self, length, case, binding, chain_mode):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        else:\n            self.data = worst_case(length)\n        self.binding = binding\n        self.chain_mode = chain_mode",
+        "code": "class CongenericsIntervalsChainsSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def peakmem_intervals_chains(self, length, case, binding, chain_mode):\n        return intervals_chains(self.CS, self.binding, self.chain_mode)\n\n    def setup(self, length, case, binding, chain_mode):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        else:\n            self.data = worst_case(length)\n        self.CS = sequences(self.data)\n        self.binding = binding\n        self.chain_mode = chain_mode",
         "name": "bench_congenerics_intervals_chains.CongenericsIntervalsChainsSuite.peakmem_intervals_chains",
         "param_names": [
             "length",
@@ -96,10 +96,10 @@
         "timeout": 600,
         "type": "peakmemory",
         "unit": "bytes",
-        "version": "8dcebd03c41d2b926ccf7d1388421c13d2d6264b942deb1778708a4d639e9c89"
+        "version": "61c8f9680613d46992fd57f92ff309b974d13b0d6a10f1367532bd118c9edea2"
     },
     "bench_congenerics_intervals_chains.CongenericsIntervalsChainsSuite.time_intervals_chains": {
-        "code": "class CongenericsIntervalsChainsSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def time_intervals_chains(self, length, case, binding, chain_mode):\n        intervals_chains(self.data, self.binding, self.chain_mode)\n\n    def setup(self, length, case, binding, chain_mode):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        else:\n            self.data = worst_case(length)\n        self.binding = binding\n        self.chain_mode = chain_mode",
+        "code": "class CongenericsIntervalsChainsSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def time_intervals_chains(self, length, case, binding, chain_mode):\n        intervals_chains(self.CS, self.binding, self.chain_mode)\n\n    def setup(self, length, case, binding, chain_mode):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        else:\n            self.data = worst_case(length)\n        self.CS = sequences(self.data)\n        self.binding = binding\n        self.chain_mode = chain_mode",
         "min_run_count": 2,
         "name": "bench_congenerics_intervals_chains.CongenericsIntervalsChainsSuite.time_intervals_chains",
         "number": 0,
@@ -136,11 +136,11 @@
         "timeout": 600,
         "type": "time",
         "unit": "seconds",
-        "version": "6ecc7755de78f6a6d8ecc384d81ea999568e150e33e070f2fa7fcc7f4ca37765",
+        "version": "ee0cea2b4725110e5d1b8eb2539c7a4e5ea737ecea415903410916b24168bc07",
         "warmup_time": -1
     },
     "bench_congenerics_order.CongenericsOrderSuite.peakmem_order": {
-        "code": "class CongenericsOrderSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def peakmem_order(self, length, case):\n        return order(self.data)\n\n    def setup(self, length, case):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        else:\n            self.data = worst_case(length)",
+        "code": "class CongenericsOrderSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def peakmem_order(self, length, case):\n        return order(self.data)\n\n    def setup(self, length, case):\n        if case == \"Best\":\n            source = best_case(length)\n        elif case == \"DNA\":\n            source = dna_case(length)\n        elif case == \"Normal\":\n            source = normal_case(length)\n        else:\n            source = worst_case(length)\n        # order(CS) takes the decomposition itself, not the raw source.\n        self.data = sequences(source)",
         "name": "bench_congenerics_order.CongenericsOrderSuite.peakmem_order",
         "param_names": [
             "length",
@@ -161,10 +161,10 @@
         ],
         "type": "peakmemory",
         "unit": "bytes",
-        "version": "484a203a164a5d65c1fbc00a9ff4dcf2f5843e34b2725795da63601b9b46082f"
+        "version": "17437e3f233cfd74adbb12ad4023d70e55ac309cd887833952b68813eabad387"
     },
     "bench_congenerics_order.CongenericsOrderSuite.time_order": {
-        "code": "class CongenericsOrderSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def time_order(self, length, case):\n        order(self.data)\n\n    def setup(self, length, case):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        else:\n            self.data = worst_case(length)",
+        "code": "class CongenericsOrderSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def time_order(self, length, case):\n        order(self.data)\n\n    def setup(self, length, case):\n        if case == \"Best\":\n            source = best_case(length)\n        elif case == \"DNA\":\n            source = dna_case(length)\n        elif case == \"Normal\":\n            source = normal_case(length)\n        else:\n            source = worst_case(length)\n        # order(CS) takes the decomposition itself, not the raw source.\n        self.data = sequences(source)",
         "min_run_count": 2,
         "name": "bench_congenerics_order.CongenericsOrderSuite.time_order",
         "number": 0,
@@ -190,7 +190,7 @@
         "sample_time": 0.01,
         "type": "time",
         "unit": "seconds",
-        "version": "8bf687e03d17641ae7d8679905ac4a72ee9cfe9b9a0adf3dfba9f998d6da58dc",
+        "version": "3aaaf00d9f8a7dc1be37e0a46963feec0d991cb3cdddc81133759938d1ede755",
         "warmup_time": -1
     },
     "bench_congenerics_sequences.CongenericsSequencesSuite.peakmem_sequences": {
