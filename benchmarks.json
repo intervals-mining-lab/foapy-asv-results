@@ -64,7 +64,7 @@
         "warmup_time": -1
     },
     "bench_intervals.IntervalsSuite.peakmem_intervals": {
-        "code": "class IntervalsSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def peakmem_intervals(self, length, case, binding, mode):\n        return intervals(self.data, self.binding, self.mode)\n\n    def setup(self, length, case, binding, mode):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        elif case == \"Worst\":\n            self.data = worst_case(length)\n        self.mode = mode\n        self.binding = binding",
+        "code": "class IntervalsSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def peakmem_intervals(self, length, case, binding_int, mode_int):\n        return intervals_tuple(\n            intervals_chain(self.data, self.binding_val, self.chain_mode_val),\n            self.binding_val,\n            self.tuple_mode_val,\n        )\n\n    def setup(self, length, case, binding_int, mode_int):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        elif case == \"Worst\":\n            self.data = worst_case(length)\n        self.binding_val = binding_int\n        self.chain_mode_val = _CHAIN_MODE[mode_int]\n        self.tuple_mode_val = _TUPLE_MODE[mode_int]",
         "name": "bench_intervals.IntervalsSuite.peakmem_intervals",
         "param_names": [
             "length",
@@ -103,10 +103,10 @@
         "timeout": 600,
         "type": "peakmemory",
         "unit": "bytes",
-        "version": "cdfbe702e4fc9f5ed74743bb6d8813258ea3aea30a6a7b0eea742b144c71d9a2"
+        "version": "6e9e9c00e3ea7be2b251d60c9ed4f6102ba7001c8f5e559c8b335ffd265ae0e8"
     },
     "bench_intervals.IntervalsSuite.time_intervals": {
-        "code": "class IntervalsSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def time_intervals(self, length, case, binding, mode):\n        intervals(self.data, self.binding, self.mode)\n\n    def setup(self, length, case, binding, mode):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        elif case == \"Worst\":\n            self.data = worst_case(length)\n        self.mode = mode\n        self.binding = binding",
+        "code": "class IntervalsSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def time_intervals(self, length, case, binding_int, mode_int):\n        intervals_tuple(\n            intervals_chain(self.data, self.binding_val, self.chain_mode_val),\n            self.binding_val,\n            self.tuple_mode_val,\n        )\n\n    def setup(self, length, case, binding_int, mode_int):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        elif case == \"Worst\":\n            self.data = worst_case(length)\n        self.binding_val = binding_int\n        self.chain_mode_val = _CHAIN_MODE[mode_int]\n        self.tuple_mode_val = _TUPLE_MODE[mode_int]",
         "min_run_count": 2,
         "name": "bench_intervals.IntervalsSuite.time_intervals",
         "number": 0,
@@ -150,7 +150,207 @@
         "timeout": 600,
         "type": "time",
         "unit": "seconds",
-        "version": "88a6ddabdce77504c2e9faa2c6f06acd4d47b956c7e573d26dda918f8efeb559",
+        "version": "82bf8f749474dd3ee043bd013bf41ed6d76c8e34043ed906e79105d56ba8c7db",
+        "warmup_time": -1
+    },
+    "bench_intervals_chain.IntervalsChainSuite.peakmem_intervals_chain": {
+        "code": "class IntervalsChainSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def peakmem_intervals_chain(self, length, case, b, cm):\n        return intervals_chain(self.data, self.binding, self.chain_mode)\n\n    def setup(self, length, case, b, cm):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        else:\n            self.data = worst_case(length)\n        self.binding = b\n        self.chain_mode = cm",
+        "name": "bench_intervals_chain.IntervalsChainSuite.peakmem_intervals_chain",
+        "param_names": [
+            "length",
+            "case",
+            "binding",
+            "chain_mode"
+        ],
+        "params": [
+            [
+                "100",
+                "10000",
+                "1000000"
+            ],
+            [
+                "'Best'",
+                "'DNA'",
+                "'Normal'",
+                "'Worst'"
+            ],
+            [
+                "1",
+                "2"
+            ],
+            [
+                "1",
+                "2"
+            ]
+        ],
+        "timeout": 600,
+        "type": "peakmemory",
+        "unit": "bytes",
+        "version": "29c5293f54f67060840fc7133e09654b8414110983eeafc17974361544ca6c50"
+    },
+    "bench_intervals_chain.IntervalsChainSuite.time_intervals_chain": {
+        "code": "class IntervalsChainSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def time_intervals_chain(self, length, case, b, cm):\n        intervals_chain(self.data, self.binding, self.chain_mode)\n\n    def setup(self, length, case, b, cm):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        else:\n            self.data = worst_case(length)\n        self.binding = b\n        self.chain_mode = cm",
+        "min_run_count": 2,
+        "name": "bench_intervals_chain.IntervalsChainSuite.time_intervals_chain",
+        "number": 0,
+        "param_names": [
+            "length",
+            "case",
+            "binding",
+            "chain_mode"
+        ],
+        "params": [
+            [
+                "100",
+                "10000",
+                "1000000"
+            ],
+            [
+                "'Best'",
+                "'DNA'",
+                "'Normal'",
+                "'Worst'"
+            ],
+            [
+                "1",
+                "2"
+            ],
+            [
+                "1",
+                "2"
+            ]
+        ],
+        "repeat": 0,
+        "rounds": 2,
+        "sample_time": 0.01,
+        "timeout": 600,
+        "type": "time",
+        "unit": "seconds",
+        "version": "c8a315b380e84e4b747a9424b2fc65fd1ffd819401ea58c6d512b937f7cf92cc",
+        "warmup_time": -1
+    },
+    "bench_intervals_distribution.IntervalsDistributionSuite.peakmem_intervals_distribution": {
+        "code": "class IntervalsDistributionSuite:\n    def peakmem_intervals_distribution(self, length, case):\n        return intervals_distribution(self.tuple_result)\n\n    def setup(self, length, case):\n        if case == \"Best\":\n            data = best_case(length)\n        elif case == \"DNA\":\n            data = dna_case(length)\n        elif case == \"Normal\":\n            data = normal_case(length)\n        else:\n            data = worst_case(length)\n        chain = intervals_chain(data, binding.start, chain_mode.boundary)\n        self.tuple_result = intervals_tuple(chain, binding.start, tuple_mode.normal)",
+        "name": "bench_intervals_distribution.IntervalsDistributionSuite.peakmem_intervals_distribution",
+        "param_names": [
+            "length",
+            "case"
+        ],
+        "params": [
+            [
+                "100",
+                "10000",
+                "1000000"
+            ],
+            [
+                "'Best'",
+                "'DNA'",
+                "'Normal'",
+                "'Worst'"
+            ]
+        ],
+        "timeout": 600,
+        "type": "peakmemory",
+        "unit": "bytes",
+        "version": "07ebcd0914bd336851cf64ec890deea3cd19846aa467af36cdf74a537af41d36"
+    },
+    "bench_intervals_distribution.IntervalsDistributionSuite.time_intervals_distribution": {
+        "code": "class IntervalsDistributionSuite:\n    def time_intervals_distribution(self, length, case):\n        intervals_distribution(self.tuple_result)\n\n    def setup(self, length, case):\n        if case == \"Best\":\n            data = best_case(length)\n        elif case == \"DNA\":\n            data = dna_case(length)\n        elif case == \"Normal\":\n            data = normal_case(length)\n        else:\n            data = worst_case(length)\n        chain = intervals_chain(data, binding.start, chain_mode.boundary)\n        self.tuple_result = intervals_tuple(chain, binding.start, tuple_mode.normal)",
+        "min_run_count": 2,
+        "name": "bench_intervals_distribution.IntervalsDistributionSuite.time_intervals_distribution",
+        "number": 0,
+        "param_names": [
+            "length",
+            "case"
+        ],
+        "params": [
+            [
+                "100",
+                "10000",
+                "1000000"
+            ],
+            [
+                "'Best'",
+                "'DNA'",
+                "'Normal'",
+                "'Worst'"
+            ]
+        ],
+        "repeat": 0,
+        "rounds": 2,
+        "sample_time": 0.01,
+        "timeout": 600,
+        "type": "time",
+        "unit": "seconds",
+        "version": "c567915054973c79f95d75597cb4c961968d789c6cf283154beb3d3bae99ba4a",
+        "warmup_time": -1
+    },
+    "bench_intervals_tuple.IntervalsTupleSuite.peakmem_intervals_tuple": {
+        "code": "class IntervalsTupleSuite:\n    def peakmem_intervals_tuple(self, length, case, tm):\n        return intervals_tuple(self.chain, binding.start, self.tuple_mode)\n\n    def setup(self, length, case, tm):\n        if case == \"Best\":\n            data = best_case(length)\n        elif case == \"DNA\":\n            data = dna_case(length)\n        elif case == \"Normal\":\n            data = normal_case(length)\n        else:\n            data = worst_case(length)\n        self.chain = intervals_chain(data, binding.start, chain_mode.boundary)\n        self.tuple_mode = tm",
+        "name": "bench_intervals_tuple.IntervalsTupleSuite.peakmem_intervals_tuple",
+        "param_names": [
+            "length",
+            "case",
+            "tuple_mode"
+        ],
+        "params": [
+            [
+                "100",
+                "10000",
+                "1000000"
+            ],
+            [
+                "'Best'",
+                "'DNA'",
+                "'Normal'",
+                "'Worst'"
+            ],
+            [
+                "1",
+                "2",
+                "3"
+            ]
+        ],
+        "timeout": 600,
+        "type": "peakmemory",
+        "unit": "bytes",
+        "version": "d7961bbcdaaab89b1b0dbe4d53ddad91f0639004592303e893e616df2c7d498e"
+    },
+    "bench_intervals_tuple.IntervalsTupleSuite.time_intervals_tuple": {
+        "code": "class IntervalsTupleSuite:\n    def time_intervals_tuple(self, length, case, tm):\n        intervals_tuple(self.chain, binding.start, self.tuple_mode)\n\n    def setup(self, length, case, tm):\n        if case == \"Best\":\n            data = best_case(length)\n        elif case == \"DNA\":\n            data = dna_case(length)\n        elif case == \"Normal\":\n            data = normal_case(length)\n        else:\n            data = worst_case(length)\n        self.chain = intervals_chain(data, binding.start, chain_mode.boundary)\n        self.tuple_mode = tm",
+        "min_run_count": 2,
+        "name": "bench_intervals_tuple.IntervalsTupleSuite.time_intervals_tuple",
+        "number": 0,
+        "param_names": [
+            "length",
+            "case",
+            "tuple_mode"
+        ],
+        "params": [
+            [
+                "100",
+                "10000",
+                "1000000"
+            ],
+            [
+                "'Best'",
+                "'DNA'",
+                "'Normal'",
+                "'Worst'"
+            ],
+            [
+                "1",
+                "2",
+                "3"
+            ]
+        ],
+        "repeat": 0,
+        "rounds": 2,
+        "sample_time": 0.01,
+        "timeout": 600,
+        "type": "time",
+        "unit": "seconds",
+        "version": "bbe60c72c0a74346e16719fb8936f24d0d81effbedbae81e81b6586429e0c50d",
         "warmup_time": -1
     },
     "bench_ma_alphabet.MaAlphabetSuite.peakmem_alphabet": {
@@ -218,7 +418,7 @@
         "warmup_time": -1
     },
     "bench_ma_intervals.MaIntervalsSuite.peakmem_intervals": {
-        "code": "class MaIntervalsSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def peakmem_intervals(self, length, case, binding, mode):\n        return intervals(self.data, self.binding, self.mode)\n\n    def setup(self, length, case, binding, mode):\n        if case == \"Best\":\n            self.data = order(best_case(length))\n        elif case == \"DNA\":\n            self.data = order(dna_case(length))\n        elif case == \"Normal\":\n            self.data = order(normal_case(length))\n        elif case == \"Worst\":\n            self.data = order(worst_case(length))\n        self.mode = mode\n        self.binding = binding",
+        "code": "class MaIntervalsSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def peakmem_intervals(self, length, case, binding_int, mode_int):\n        return intervals_tuple(\n            intervals_chain(self.data, self.binding_val, self.chain_mode_val),\n            self.binding_val,\n            self.tuple_mode_val,\n        )\n\n    def setup(self, length, case, binding_int, mode_int):\n        if case == \"Best\":\n            self.data = order(best_case(length))\n        elif case == \"DNA\":\n            self.data = order(dna_case(length))\n        elif case == \"Normal\":\n            self.data = order(normal_case(length))\n        elif case == \"Worst\":\n            self.data = order(worst_case(length))\n        self.binding_val = binding_int\n        self.chain_mode_val = _CHAIN_MODE[mode_int]\n        self.tuple_mode_val = _TUPLE_MODE[mode_int]",
         "name": "bench_ma_intervals.MaIntervalsSuite.peakmem_intervals",
         "param_names": [
             "length",
@@ -251,10 +451,10 @@
         ],
         "type": "peakmemory",
         "unit": "bytes",
-        "version": "749267a53459bb7c11be23b1e017c910501fb9fc320e806f2a0c0455b864a133"
+        "version": "5bbbac313427a02863b5c52d30c8ccf4868ddbe3b6700d03852cd32598646802"
     },
     "bench_ma_intervals.MaIntervalsSuite.time_intervals": {
-        "code": "class MaIntervalsSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def time_intervals(self, length, case, binding, mode):\n        intervals(self.data, self.binding, self.mode)\n\n    def setup(self, length, case, binding, mode):\n        if case == \"Best\":\n            self.data = order(best_case(length))\n        elif case == \"DNA\":\n            self.data = order(dna_case(length))\n        elif case == \"Normal\":\n            self.data = order(normal_case(length))\n        elif case == \"Worst\":\n            self.data = order(worst_case(length))\n        self.mode = mode\n        self.binding = binding",
+        "code": "class MaIntervalsSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def time_intervals(self, length, case, binding_int, mode_int):\n        intervals_tuple(\n            intervals_chain(self.data, self.binding_val, self.chain_mode_val),\n            self.binding_val,\n            self.tuple_mode_val,\n        )\n\n    def setup(self, length, case, binding_int, mode_int):\n        if case == \"Best\":\n            self.data = order(best_case(length))\n        elif case == \"DNA\":\n            self.data = order(dna_case(length))\n        elif case == \"Normal\":\n            self.data = order(normal_case(length))\n        elif case == \"Worst\":\n            self.data = order(worst_case(length))\n        self.binding_val = binding_int\n        self.chain_mode_val = _CHAIN_MODE[mode_int]\n        self.tuple_mode_val = _TUPLE_MODE[mode_int]",
         "min_run_count": 2,
         "name": "bench_ma_intervals.MaIntervalsSuite.time_intervals",
         "number": 0,
@@ -292,7 +492,7 @@
         "sample_time": 0.01,
         "type": "time",
         "unit": "seconds",
-        "version": "b4e3235699185c220b989971f4f831555ea8fe3a332dc2a7ed38ce4fbb58063a",
+        "version": "1bccb1b19273e4e6890281068d9cc6568729724a7e09fa8b223ad5cbcf4979b4",
         "warmup_time": -1
     },
     "bench_ma_order.MaOrderSuite.peakmem_order": {
@@ -423,6 +623,266 @@
         "type": "time",
         "unit": "seconds",
         "version": "2d50c8901642ed79989dc1d3e0e555bf76ae10438357fbbf9c6f8bf064d00bcc",
+        "warmup_time": -1
+    },
+    "bench_partials_alphabet.PartialsAlphabetSuite.peakmem_alphabet": {
+        "code": "class PartialsAlphabetSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def peakmem_alphabet(self, length, case):\n        return alphabet(self.data)\n\n    def setup(self, length, case):\n        if case == \"Best\":\n            source = best_case(length)\n        elif case == \"DNA\":\n            source = dna_case(length)\n        elif case == \"Normal\":\n            source = normal_case(length)\n        else:\n            source = worst_case(length)\n    \n        # Keep the unmasked case directly comparable to foapy.alphabet.\n        if case == \"Best\":\n            self.data = source\n        elif case == \"DNA\":\n            self.data = ma.masked_array(source, mask=np.arange(length) % 4 == 0)\n        elif case == \"Normal\":\n            self.data = ma.masked_array(source, mask=np.arange(length) % 2 == 0)\n        else:\n            self.data = ma.masked_array(source, mask=np.ones(length, dtype=bool))",
+        "name": "bench_partials_alphabet.PartialsAlphabetSuite.peakmem_alphabet",
+        "param_names": [
+            "length",
+            "case"
+        ],
+        "params": [
+            [
+                "5",
+                "50",
+                "500",
+                "5000",
+                "50000",
+                "500000",
+                "5000000",
+                "50000000"
+            ],
+            [
+                "'Best'",
+                "'DNA'",
+                "'Normal'",
+                "'Worst'"
+            ]
+        ],
+        "type": "peakmemory",
+        "unit": "bytes",
+        "version": "c054daab05ce60a486e43e78ed03bc5e9e5058bc374a7398fc9f41a79d0b6179"
+    },
+    "bench_partials_alphabet.PartialsAlphabetSuite.time_alphabet": {
+        "code": "class PartialsAlphabetSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def time_alphabet(self, length, case):\n        alphabet(self.data)\n\n    def setup(self, length, case):\n        if case == \"Best\":\n            source = best_case(length)\n        elif case == \"DNA\":\n            source = dna_case(length)\n        elif case == \"Normal\":\n            source = normal_case(length)\n        else:\n            source = worst_case(length)\n    \n        # Keep the unmasked case directly comparable to foapy.alphabet.\n        if case == \"Best\":\n            self.data = source\n        elif case == \"DNA\":\n            self.data = ma.masked_array(source, mask=np.arange(length) % 4 == 0)\n        elif case == \"Normal\":\n            self.data = ma.masked_array(source, mask=np.arange(length) % 2 == 0)\n        else:\n            self.data = ma.masked_array(source, mask=np.ones(length, dtype=bool))",
+        "min_run_count": 2,
+        "name": "bench_partials_alphabet.PartialsAlphabetSuite.time_alphabet",
+        "number": 0,
+        "param_names": [
+            "length",
+            "case"
+        ],
+        "params": [
+            [
+                "5",
+                "50",
+                "500",
+                "5000",
+                "50000",
+                "500000",
+                "5000000",
+                "50000000"
+            ],
+            [
+                "'Best'",
+                "'DNA'",
+                "'Normal'",
+                "'Worst'"
+            ]
+        ],
+        "repeat": 0,
+        "rounds": 2,
+        "sample_time": 0.01,
+        "type": "time",
+        "unit": "seconds",
+        "version": "32a5251a6472de5ac822f6d58763c3f95d4292b2e9d883b64013a6d5ed6d2d3b",
+        "warmup_time": -1
+    },
+    "bench_partials_intervals_chain.PartialsIntervalsChainSuite.peakmem_intervals_chain": {
+        "code": "class PartialsIntervalsChainSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def peakmem_intervals_chain(self, length, case, binding, chain_mode):\n        return intervals_chain(self.data, self.binding, self.chain_mode)\n\n    def setup(self, length, case, binding, chain_mode):\n        if case == \"Dense\":\n            source = best_case(length)\n            self.data = source\n        elif case == \"PartialDNA\":\n            source = dna_case(length)\n            self.data = ma.masked_array(source, mask=np.arange(length) % 4 == 0)\n        elif case == \"PartialNormal\":\n            source = normal_case(length)\n            self.data = ma.masked_array(source, mask=np.arange(length) % 2 == 0)\n        else:\n            source = worst_case(length)\n            self.data = ma.masked_array(source, mask=np.ones(length, dtype=bool))\n        self.binding = binding\n        self.chain_mode = chain_mode",
+        "name": "bench_partials_intervals_chain.PartialsIntervalsChainSuite.peakmem_intervals_chain",
+        "param_names": [
+            "length",
+            "case",
+            "binding",
+            "chain_mode"
+        ],
+        "params": [
+            [
+                "100",
+                "10000",
+                "1000000"
+            ],
+            [
+                "'Dense'",
+                "'PartialDNA'",
+                "'PartialNormal'",
+                "'FullyMasked'"
+            ],
+            [
+                "1",
+                "2"
+            ],
+            [
+                "1",
+                "2"
+            ]
+        ],
+        "timeout": 600,
+        "type": "peakmemory",
+        "unit": "bytes",
+        "version": "3ddf4d2a50c433e46a3ceb73ac939781e44877109daf27c6cea785420095e409"
+    },
+    "bench_partials_intervals_chain.PartialsIntervalsChainSuite.time_intervals_chain": {
+        "code": "class PartialsIntervalsChainSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def time_intervals_chain(self, length, case, binding, chain_mode):\n        intervals_chain(self.data, self.binding, self.chain_mode)\n\n    def setup(self, length, case, binding, chain_mode):\n        if case == \"Dense\":\n            source = best_case(length)\n            self.data = source\n        elif case == \"PartialDNA\":\n            source = dna_case(length)\n            self.data = ma.masked_array(source, mask=np.arange(length) % 4 == 0)\n        elif case == \"PartialNormal\":\n            source = normal_case(length)\n            self.data = ma.masked_array(source, mask=np.arange(length) % 2 == 0)\n        else:\n            source = worst_case(length)\n            self.data = ma.masked_array(source, mask=np.ones(length, dtype=bool))\n        self.binding = binding\n        self.chain_mode = chain_mode",
+        "min_run_count": 2,
+        "name": "bench_partials_intervals_chain.PartialsIntervalsChainSuite.time_intervals_chain",
+        "number": 0,
+        "param_names": [
+            "length",
+            "case",
+            "binding",
+            "chain_mode"
+        ],
+        "params": [
+            [
+                "100",
+                "10000",
+                "1000000"
+            ],
+            [
+                "'Dense'",
+                "'PartialDNA'",
+                "'PartialNormal'",
+                "'FullyMasked'"
+            ],
+            [
+                "1",
+                "2"
+            ],
+            [
+                "1",
+                "2"
+            ]
+        ],
+        "repeat": 0,
+        "rounds": 2,
+        "sample_time": 0.01,
+        "timeout": 600,
+        "type": "time",
+        "unit": "seconds",
+        "version": "d6fbe86266d6ea7962782092befeaf0adf4a7297fec514bc422bfb294fdd56a3",
+        "warmup_time": -1
+    },
+    "bench_partials_order.PartialsOrderSuite.peakmem_order": {
+        "code": "class PartialsOrderSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def peakmem_order(self, length, case):\n        return order(self.data)\n\n    def setup(self, length, case):\n        if case == \"Unmasked\":\n            self.data = best_case(length)\n        elif case == \"PartialDNA\":\n            source = dna_case(length)\n            self.data = ma.masked_array(source, mask=np.arange(length) % 4 == 0)\n        elif case == \"PartialNormal\":\n            source = normal_case(length)\n            self.data = ma.masked_array(source, mask=np.arange(length) % 2 == 0)\n        elif case == \"FullyMasked\":\n            source = worst_case(length)\n            self.data = ma.masked_array(source, mask=np.ones(length, dtype=bool))",
+        "name": "bench_partials_order.PartialsOrderSuite.peakmem_order",
+        "param_names": [
+            "length",
+            "case"
+        ],
+        "params": [
+            [
+                "5",
+                "50",
+                "500",
+                "5000",
+                "50000",
+                "500000",
+                "5000000",
+                "50000000"
+            ],
+            [
+                "'Unmasked'",
+                "'PartialDNA'",
+                "'PartialNormal'",
+                "'FullyMasked'"
+            ]
+        ],
+        "type": "peakmemory",
+        "unit": "bytes",
+        "version": "e3d08975881cdc4dc8b3f3020ab9dba6e1c9fe2343e7f5c5092735f79e1868c8"
+    },
+    "bench_partials_order.PartialsOrderSuite.time_order": {
+        "code": "class PartialsOrderSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def time_order(self, length, case):\n        order(self.data)\n\n    def setup(self, length, case):\n        if case == \"Unmasked\":\n            self.data = best_case(length)\n        elif case == \"PartialDNA\":\n            source = dna_case(length)\n            self.data = ma.masked_array(source, mask=np.arange(length) % 4 == 0)\n        elif case == \"PartialNormal\":\n            source = normal_case(length)\n            self.data = ma.masked_array(source, mask=np.arange(length) % 2 == 0)\n        elif case == \"FullyMasked\":\n            source = worst_case(length)\n            self.data = ma.masked_array(source, mask=np.ones(length, dtype=bool))",
+        "min_run_count": 2,
+        "name": "bench_partials_order.PartialsOrderSuite.time_order",
+        "number": 0,
+        "param_names": [
+            "length",
+            "case"
+        ],
+        "params": [
+            [
+                "5",
+                "50",
+                "500",
+                "5000",
+                "50000",
+                "500000",
+                "5000000",
+                "50000000"
+            ],
+            [
+                "'Unmasked'",
+                "'PartialDNA'",
+                "'PartialNormal'",
+                "'FullyMasked'"
+            ]
+        ],
+        "repeat": 0,
+        "rounds": 2,
+        "sample_time": 0.01,
+        "type": "time",
+        "unit": "seconds",
+        "version": "8411189c07b0fa1fb61c40e02231b6ac82e398f0af3179aafff6d7c47ff4a762",
+        "warmup_time": -1
+    },
+    "bench_pipeline_full.PipelineFullSuite.peakmem_pipeline_full": {
+        "code": "class PipelineFullSuite:\n    def peakmem_pipeline_full(self, length, case):\n        chain = intervals_chain(self.data, binding.start, chain_mode.boundary)\n        result = intervals_tuple(chain, binding.start, tuple_mode.normal)\n        return intervals_distribution(result)\n\n    def setup(self, length, case):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        else:\n            self.data = worst_case(length)",
+        "name": "bench_pipeline_full.PipelineFullSuite.peakmem_pipeline_full",
+        "param_names": [
+            "length",
+            "case"
+        ],
+        "params": [
+            [
+                "100",
+                "10000",
+                "1000000"
+            ],
+            [
+                "'Best'",
+                "'DNA'",
+                "'Normal'",
+                "'Worst'"
+            ]
+        ],
+        "timeout": 600,
+        "type": "peakmemory",
+        "unit": "bytes",
+        "version": "d526c3677cb1577000c1e6f265e34b13ae7f70f95a36c61f7ee47d0d60803b1d"
+    },
+    "bench_pipeline_full.PipelineFullSuite.time_pipeline_full": {
+        "code": "class PipelineFullSuite:\n    def time_pipeline_full(self, length, case):\n        chain = intervals_chain(self.data, binding.start, chain_mode.boundary)\n        result = intervals_tuple(chain, binding.start, tuple_mode.normal)\n        intervals_distribution(result)\n\n    def setup(self, length, case):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        else:\n            self.data = worst_case(length)",
+        "min_run_count": 2,
+        "name": "bench_pipeline_full.PipelineFullSuite.time_pipeline_full",
+        "number": 0,
+        "param_names": [
+            "length",
+            "case"
+        ],
+        "params": [
+            [
+                "100",
+                "10000",
+                "1000000"
+            ],
+            [
+                "'Best'",
+                "'DNA'",
+                "'Normal'",
+                "'Worst'"
+            ]
+        ],
+        "repeat": 0,
+        "rounds": 2,
+        "sample_time": 0.01,
+        "timeout": 600,
+        "type": "time",
+        "unit": "seconds",
+        "version": "cbfdad4439df2fc0373d8e9fa7e6c0e74fa13f53a145626403e6b2c41b7352c4",
         "warmup_time": -1
     },
     "version": 2
