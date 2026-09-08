@@ -63,6 +63,70 @@
         "version": "3c996c04e73bb47e942a0b0f63685b68f97629ec6b986709b8eb327d6e4d246e",
         "warmup_time": -1
     },
+    "bench_alphabet.AxisAlphabetSuite.peakmem_alphabet": {
+        "code": "class AxisAlphabetSuite:\n    def peakmem_alphabet(self, length, record_width, axis):\n        return alphabet(self.data, axis=axis)\n\n    def setup(self, length, record_width, axis):\n        self.data = records_case(length, record_width, axis)",
+        "name": "bench_alphabet.AxisAlphabetSuite.peakmem_alphabet",
+        "param_names": [
+            "length",
+            "record_width",
+            "axis"
+        ],
+        "params": [
+            [
+                "5",
+                "50",
+                "500",
+                "5000",
+                "50000"
+            ],
+            [
+                "2",
+                "8"
+            ],
+            [
+                "0",
+                "1"
+            ]
+        ],
+        "type": "peakmemory",
+        "unit": "bytes",
+        "version": "d070ee01d1645682981abb98c32c68d45f3d1bb32696e2b85f93dc6787f1a9b1"
+    },
+    "bench_alphabet.AxisAlphabetSuite.time_alphabet": {
+        "code": "class AxisAlphabetSuite:\n    def time_alphabet(self, length, record_width, axis):\n        alphabet(self.data, axis=axis)\n\n    def setup(self, length, record_width, axis):\n        self.data = records_case(length, record_width, axis)",
+        "min_run_count": 2,
+        "name": "bench_alphabet.AxisAlphabetSuite.time_alphabet",
+        "number": 0,
+        "param_names": [
+            "length",
+            "record_width",
+            "axis"
+        ],
+        "params": [
+            [
+                "5",
+                "50",
+                "500",
+                "5000",
+                "50000"
+            ],
+            [
+                "2",
+                "8"
+            ],
+            [
+                "0",
+                "1"
+            ]
+        ],
+        "repeat": 0,
+        "rounds": 2,
+        "sample_time": 0.01,
+        "type": "time",
+        "unit": "seconds",
+        "version": "6ecc4546ea3b70561fe0a7e7120614cb599c486cf6569e38d276b18a2ae880ea",
+        "warmup_time": -1
+    },
     "bench_congenerics_intervals_chains.CongenericsIntervalsChainsSuite.peakmem_intervals_chains": {
         "code": "class CongenericsIntervalsChainsSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def peakmem_intervals_chains(self, length, case, binding, chain_mode):\n        return intervals_chains(self.CS, self.binding, self.chain_mode)\n\n    def setup(self, length, case, binding, chain_mode):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        else:\n            self.data = worst_case(length)\n        self.CS = sequences(self.data)\n        self.binding = binding\n        self.chain_mode = chain_mode",
         "name": "bench_congenerics_intervals_chains.CongenericsIntervalsChainsSuite.peakmem_intervals_chains",
@@ -537,6 +601,72 @@
         "version": "bbe60c72c0a74346e16719fb8936f24d0d81effbedbae81e81b6586429e0c50d",
         "warmup_time": -1
     },
+    "bench_order.AxisOrderSuite.peakmem_order": {
+        "code": "class AxisOrderSuite:\n    def peakmem_order(self, length, record_width, axis):\n        return order(self.data, axis=axis)\n\n    def setup(self, length, record_width, axis):\n        self.data = records_case(length, record_width, axis)",
+        "name": "bench_order.AxisOrderSuite.peakmem_order",
+        "param_names": [
+            "length",
+            "record_width",
+            "axis"
+        ],
+        "params": [
+            [
+                "5",
+                "50",
+                "500",
+                "5000",
+                "50000"
+            ],
+            [
+                "2",
+                "8"
+            ],
+            [
+                "0",
+                "1"
+            ]
+        ],
+        "timeout": 600,
+        "type": "peakmemory",
+        "unit": "bytes",
+        "version": "47a478f917622e009d5a9a611a7f752b069597059631ffe4db70118ff96bce63"
+    },
+    "bench_order.AxisOrderSuite.time_order": {
+        "code": "class AxisOrderSuite:\n    def time_order(self, length, record_width, axis):\n        order(self.data, axis=axis)\n\n    def setup(self, length, record_width, axis):\n        self.data = records_case(length, record_width, axis)",
+        "min_run_count": 2,
+        "name": "bench_order.AxisOrderSuite.time_order",
+        "number": 0,
+        "param_names": [
+            "length",
+            "record_width",
+            "axis"
+        ],
+        "params": [
+            [
+                "5",
+                "50",
+                "500",
+                "5000",
+                "50000"
+            ],
+            [
+                "2",
+                "8"
+            ],
+            [
+                "0",
+                "1"
+            ]
+        ],
+        "repeat": 0,
+        "rounds": 2,
+        "sample_time": 0.01,
+        "timeout": 600,
+        "type": "time",
+        "unit": "seconds",
+        "version": "96fc1ed6e47c3fe8c438a50b4c3dc7187f49dba28e1ccb9557810d44567ee49b",
+        "warmup_time": -1
+    },
     "bench_order.OrderSuite.peakmem_order": {
         "code": "class OrderSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def peakmem_order(self, length, case):\n        return order(self.data)\n\n    def setup(self, length, case):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        elif case == \"Worst\":\n            self.data = worst_case(length)",
         "name": "bench_order.OrderSuite.peakmem_order",
@@ -667,6 +797,82 @@
         "version": "32a5251a6472de5ac822f6d58763c3f95d4292b2e9d883b64013a6d5ed6d2d3b",
         "warmup_time": -1
     },
+    "bench_partials_alphabet.PartialsAxisAlphabetSuite.peakmem_alphabet": {
+        "code": "class PartialsAxisAlphabetSuite:\n    def peakmem_alphabet(self, length, record_width, axis, case):\n        return alphabet(self.data, axis=axis)\n\n    def setup(self, length, record_width, axis, case):\n        source = records_case(length, record_width, axis)\n        mask = whole_slice_mask(length, record_width, axis, case)\n        self.data = ma.masked_array(source, mask=mask)",
+        "name": "bench_partials_alphabet.PartialsAxisAlphabetSuite.peakmem_alphabet",
+        "param_names": [
+            "length",
+            "record_width",
+            "axis",
+            "case"
+        ],
+        "params": [
+            [
+                "5",
+                "50",
+                "500",
+                "5000",
+                "50000"
+            ],
+            [
+                "2",
+                "8"
+            ],
+            [
+                "0",
+                "1"
+            ],
+            [
+                "'Unmasked'",
+                "'Gapped'",
+                "'FullyMasked'"
+            ]
+        ],
+        "type": "peakmemory",
+        "unit": "bytes",
+        "version": "d9bad5d49929910dc3258b4906b64484f221c2d0be48bc297de176ad5a202d51"
+    },
+    "bench_partials_alphabet.PartialsAxisAlphabetSuite.time_alphabet": {
+        "code": "class PartialsAxisAlphabetSuite:\n    def time_alphabet(self, length, record_width, axis, case):\n        alphabet(self.data, axis=axis)\n\n    def setup(self, length, record_width, axis, case):\n        source = records_case(length, record_width, axis)\n        mask = whole_slice_mask(length, record_width, axis, case)\n        self.data = ma.masked_array(source, mask=mask)",
+        "min_run_count": 2,
+        "name": "bench_partials_alphabet.PartialsAxisAlphabetSuite.time_alphabet",
+        "number": 0,
+        "param_names": [
+            "length",
+            "record_width",
+            "axis",
+            "case"
+        ],
+        "params": [
+            [
+                "5",
+                "50",
+                "500",
+                "5000",
+                "50000"
+            ],
+            [
+                "2",
+                "8"
+            ],
+            [
+                "0",
+                "1"
+            ],
+            [
+                "'Unmasked'",
+                "'Gapped'",
+                "'FullyMasked'"
+            ]
+        ],
+        "repeat": 0,
+        "rounds": 2,
+        "sample_time": 0.01,
+        "type": "time",
+        "unit": "seconds",
+        "version": "bf3b241d0ab389e52b34892174a583b63980860a332c36f1b6c4aebe0f3dddd7",
+        "warmup_time": -1
+    },
     "bench_partials_intervals_chain.PartialsIntervalsChainSuite.peakmem_intervals_chain": {
         "code": "class PartialsIntervalsChainSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def peakmem_intervals_chain(self, length, case, binding, chain_mode):\n        return intervals_chain(self.data, self.binding, self.chain_mode)\n\n    def setup(self, length, case, binding, chain_mode):\n        if case == \"Dense\":\n            source = best_case(length)\n            self.data = source\n        elif case == \"PartialDNA\":\n            source = dna_case(length)\n            self.data = ma.masked_array(source, mask=np.arange(length) % 4 == 0)\n        elif case == \"PartialNormal\":\n            source = normal_case(length)\n            self.data = ma.masked_array(source, mask=np.arange(length) % 2 == 0)\n        else:\n            source = worst_case(length)\n            self.data = ma.masked_array(source, mask=np.ones(length, dtype=bool))\n        self.binding = binding\n        self.chain_mode = chain_mode",
         "name": "bench_partials_intervals_chain.PartialsIntervalsChainSuite.peakmem_intervals_chain",
@@ -741,6 +947,82 @@
         "type": "time",
         "unit": "seconds",
         "version": "d6fbe86266d6ea7962782092befeaf0adf4a7297fec514bc422bfb294fdd56a3",
+        "warmup_time": -1
+    },
+    "bench_partials_order.PartialsAxisOrderSuite.peakmem_order": {
+        "code": "class PartialsAxisOrderSuite:\n    def peakmem_order(self, length, record_width, axis, case):\n        return order(self.data, axis=axis)\n\n    def setup(self, length, record_width, axis, case):\n        source = records_case(length, record_width, axis)\n        mask = whole_slice_mask(length, record_width, axis, case)\n        self.data = ma.masked_array(source, mask=mask)",
+        "name": "bench_partials_order.PartialsAxisOrderSuite.peakmem_order",
+        "param_names": [
+            "length",
+            "record_width",
+            "axis",
+            "case"
+        ],
+        "params": [
+            [
+                "5",
+                "50",
+                "500",
+                "5000",
+                "50000"
+            ],
+            [
+                "2",
+                "8"
+            ],
+            [
+                "0",
+                "1"
+            ],
+            [
+                "'Unmasked'",
+                "'Gapped'",
+                "'FullyMasked'"
+            ]
+        ],
+        "type": "peakmemory",
+        "unit": "bytes",
+        "version": "b11ab79e236e67e334c1b3a14c3f2a2bd6f5fa631b54d186b234e0c938e2b6fe"
+    },
+    "bench_partials_order.PartialsAxisOrderSuite.time_order": {
+        "code": "class PartialsAxisOrderSuite:\n    def time_order(self, length, record_width, axis, case):\n        order(self.data, axis=axis)\n\n    def setup(self, length, record_width, axis, case):\n        source = records_case(length, record_width, axis)\n        mask = whole_slice_mask(length, record_width, axis, case)\n        self.data = ma.masked_array(source, mask=mask)",
+        "min_run_count": 2,
+        "name": "bench_partials_order.PartialsAxisOrderSuite.time_order",
+        "number": 0,
+        "param_names": [
+            "length",
+            "record_width",
+            "axis",
+            "case"
+        ],
+        "params": [
+            [
+                "5",
+                "50",
+                "500",
+                "5000",
+                "50000"
+            ],
+            [
+                "2",
+                "8"
+            ],
+            [
+                "0",
+                "1"
+            ],
+            [
+                "'Unmasked'",
+                "'Gapped'",
+                "'FullyMasked'"
+            ]
+        ],
+        "repeat": 0,
+        "rounds": 2,
+        "sample_time": 0.01,
+        "type": "time",
+        "unit": "seconds",
+        "version": "3ca1d9f9bd71122ecf3d50ab34a6ee9bc617b4519684372e1ad221228cb158bf",
         "warmup_time": -1
     },
     "bench_partials_order.PartialsOrderSuite.peakmem_order": {
