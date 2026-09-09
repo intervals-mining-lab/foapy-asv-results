@@ -559,6 +559,78 @@
         "version": "c8a315b380e84e4b747a9424b2fc65fd1ffd819401ea58c6d512b937f7cf92cc",
         "warmup_time": -1
     },
+    "bench_intervals_distribution.AxisIntervalsDistributionSuite.peakmem_intervals_distribution": {
+        "code": "class AxisIntervalsDistributionSuite:\n    @skip_params_if(axis_skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def peakmem_intervals_distribution(self, length, lane_count, axis, case):\n        return intervals_distribution(self.tuples, axis=self.axis)\n\n    def setup(self, length, lane_count, axis, case):\n        self.tuples = _tuples_case(length, lane_count, axis, case)\n        self.axis = axis",
+        "name": "bench_intervals_distribution.AxisIntervalsDistributionSuite.peakmem_intervals_distribution",
+        "param_names": [
+            "length",
+            "lane_count",
+            "axis",
+            "case"
+        ],
+        "params": [
+            [
+                "100",
+                "10000",
+                "1000000"
+            ],
+            [
+                "2",
+                "8"
+            ],
+            [
+                "0",
+                "1"
+            ],
+            [
+                "'Plain'",
+                "'Masked'"
+            ]
+        ],
+        "timeout": 600,
+        "type": "peakmemory",
+        "unit": "bytes",
+        "version": "facb6e360f53ed3a6b130c46b5af86af6e19d171bca35c6ce86e2f7a4a125dba"
+    },
+    "bench_intervals_distribution.AxisIntervalsDistributionSuite.time_intervals_distribution": {
+        "code": "class AxisIntervalsDistributionSuite:\n    @skip_params_if(axis_skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def time_intervals_distribution(self, length, lane_count, axis, case):\n        intervals_distribution(self.tuples, axis=self.axis)\n\n    def setup(self, length, lane_count, axis, case):\n        self.tuples = _tuples_case(length, lane_count, axis, case)\n        self.axis = axis",
+        "min_run_count": 2,
+        "name": "bench_intervals_distribution.AxisIntervalsDistributionSuite.time_intervals_distribution",
+        "number": 0,
+        "param_names": [
+            "length",
+            "lane_count",
+            "axis",
+            "case"
+        ],
+        "params": [
+            [
+                "100",
+                "10000",
+                "1000000"
+            ],
+            [
+                "2",
+                "8"
+            ],
+            [
+                "0",
+                "1"
+            ],
+            [
+                "'Plain'",
+                "'Masked'"
+            ]
+        ],
+        "repeat": 0,
+        "rounds": 2,
+        "sample_time": 0.01,
+        "timeout": 600,
+        "type": "time",
+        "unit": "seconds",
+        "version": "7f9557351a056cfc39b386083c9bcbb031cdeea56b9e57569967d150c6f8c713",
+        "warmup_time": -1
+    },
     "bench_intervals_distribution.IntervalsDistributionSuite.peakmem_intervals_distribution": {
         "code": "class IntervalsDistributionSuite:\n    def peakmem_intervals_distribution(self, length, case):\n        return intervals_distribution(self.tuple_result)\n\n    def setup(self, length, case):\n        if case == \"Best\":\n            data = best_case(length)\n        elif case == \"DNA\":\n            data = dna_case(length)\n        elif case == \"Normal\":\n            data = normal_case(length)\n        else:\n            data = worst_case(length)\n        chain = intervals_chain(data, binding.start, chain_mode.boundary)\n        self.tuple_result = intervals_tuple(chain, binding.start, tuple_mode.normal)",
         "name": "bench_intervals_distribution.IntervalsDistributionSuite.peakmem_intervals_distribution",
@@ -613,6 +685,100 @@
         "type": "time",
         "unit": "seconds",
         "version": "c567915054973c79f95d75597cb4c961968d789c6cf283154beb3d3bae99ba4a",
+        "warmup_time": -1
+    },
+    "bench_intervals_tuple.AxisIntervalsTupleSuite.peakmem_intervals_tuple": {
+        "code": "class AxisIntervalsTupleSuite:\n    @skip_params_if(axis_skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def peakmem_intervals_tuple(\n        self, length, lane_count, axis, case, binding_value, tuple_mode_value\n    ):\n        return intervals_tuple(\n            self.chains, self.binding, self.tuple_mode, axis=self.axis\n        )\n\n    def setup(self, length, lane_count, axis, case, binding_value, tuple_mode_value):\n        self.chains = _chains_case(length, lane_count, axis, case, binding_value)\n        self.axis = axis\n        self.binding = binding_value\n        self.tuple_mode = tuple_mode_value",
+        "name": "bench_intervals_tuple.AxisIntervalsTupleSuite.peakmem_intervals_tuple",
+        "param_names": [
+            "length",
+            "lane_count",
+            "axis",
+            "case",
+            "binding",
+            "tuple_mode"
+        ],
+        "params": [
+            [
+                "100",
+                "10000",
+                "1000000"
+            ],
+            [
+                "2",
+                "8"
+            ],
+            [
+                "0",
+                "1"
+            ],
+            [
+                "'Uniform'",
+                "'Variable'"
+            ],
+            [
+                "1",
+                "2"
+            ],
+            [
+                "1",
+                "2",
+                "3"
+            ]
+        ],
+        "timeout": 600,
+        "type": "peakmemory",
+        "unit": "bytes",
+        "version": "af6868b92231ad605238c285218a9cc7d3ee550c3e6301c85dccd30c5fbfed7f"
+    },
+    "bench_intervals_tuple.AxisIntervalsTupleSuite.time_intervals_tuple": {
+        "code": "class AxisIntervalsTupleSuite:\n    @skip_params_if(axis_skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def time_intervals_tuple(\n        self, length, lane_count, axis, case, binding_value, tuple_mode_value\n    ):\n        intervals_tuple(self.chains, self.binding, self.tuple_mode, axis=self.axis)\n\n    def setup(self, length, lane_count, axis, case, binding_value, tuple_mode_value):\n        self.chains = _chains_case(length, lane_count, axis, case, binding_value)\n        self.axis = axis\n        self.binding = binding_value\n        self.tuple_mode = tuple_mode_value",
+        "min_run_count": 2,
+        "name": "bench_intervals_tuple.AxisIntervalsTupleSuite.time_intervals_tuple",
+        "number": 0,
+        "param_names": [
+            "length",
+            "lane_count",
+            "axis",
+            "case",
+            "binding",
+            "tuple_mode"
+        ],
+        "params": [
+            [
+                "100",
+                "10000",
+                "1000000"
+            ],
+            [
+                "2",
+                "8"
+            ],
+            [
+                "0",
+                "1"
+            ],
+            [
+                "'Uniform'",
+                "'Variable'"
+            ],
+            [
+                "1",
+                "2"
+            ],
+            [
+                "1",
+                "2",
+                "3"
+            ]
+        ],
+        "repeat": 0,
+        "rounds": 2,
+        "sample_time": 0.01,
+        "timeout": 600,
+        "type": "time",
+        "unit": "seconds",
+        "version": "9327b7626af66d971273aa74313314be8d5c112f96f8712a2922081b3ace6059",
         "warmup_time": -1
     },
     "bench_intervals_tuple.IntervalsTupleSuite.peakmem_intervals_tuple": {
@@ -1123,6 +1289,174 @@
         "type": "time",
         "unit": "seconds",
         "version": "d6fbe86266d6ea7962782092befeaf0adf4a7297fec514bc422bfb294fdd56a3",
+        "warmup_time": -1
+    },
+    "bench_partials_intervals_tuple.AxisPartialsIntervalsTupleSuite.peakmem_intervals_tuple": {
+        "code": "class AxisPartialsIntervalsTupleSuite:\n    @skip_params_if(axis_skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def peakmem_intervals_tuple(\n        self,\n        length,\n        lane_count,\n        axis,\n        gap_case,\n        binding_value,\n        tuple_mode_value,\n    ):\n        return intervals_tuple(\n            self.chains,\n            self.binding,\n            self.tuple_mode,\n            axis=self.axis,\n        )\n\n    def setup(\n        self,\n        length,\n        lane_count,\n        axis,\n        gap_case,\n        binding_value,\n        tuple_mode_value,\n    ):\n        chains = _partial_chain_rows(\n            length,\n            lane_count,\n            gap_case,\n            binding_value,\n        )\n        self.chains = chains if axis == 1 else chains.T\n        self.axis = axis\n        self.binding = binding_value\n        self.tuple_mode = tuple_mode_value",
+        "name": "bench_partials_intervals_tuple.AxisPartialsIntervalsTupleSuite.peakmem_intervals_tuple",
+        "param_names": [
+            "length",
+            "lane_count",
+            "axis",
+            "case",
+            "binding",
+            "tuple_mode"
+        ],
+        "params": [
+            [
+                "100",
+                "10000",
+                "1000000"
+            ],
+            [
+                "2",
+                "8"
+            ],
+            [
+                "0",
+                "1"
+            ],
+            [
+                "'Dense'",
+                "'Gapped'"
+            ],
+            [
+                "1",
+                "2"
+            ],
+            [
+                "1",
+                "2",
+                "3"
+            ]
+        ],
+        "timeout": 600,
+        "type": "peakmemory",
+        "unit": "bytes",
+        "version": "0efacdc0e3236bef5d9779a485bda9ef3f212d7ca3a3b815f9543fab13227284"
+    },
+    "bench_partials_intervals_tuple.AxisPartialsIntervalsTupleSuite.time_intervals_tuple": {
+        "code": "class AxisPartialsIntervalsTupleSuite:\n    @skip_params_if(axis_skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def time_intervals_tuple(\n        self,\n        length,\n        lane_count,\n        axis,\n        gap_case,\n        binding_value,\n        tuple_mode_value,\n    ):\n        intervals_tuple(\n            self.chains,\n            self.binding,\n            self.tuple_mode,\n            axis=self.axis,\n        )\n\n    def setup(\n        self,\n        length,\n        lane_count,\n        axis,\n        gap_case,\n        binding_value,\n        tuple_mode_value,\n    ):\n        chains = _partial_chain_rows(\n            length,\n            lane_count,\n            gap_case,\n            binding_value,\n        )\n        self.chains = chains if axis == 1 else chains.T\n        self.axis = axis\n        self.binding = binding_value\n        self.tuple_mode = tuple_mode_value",
+        "min_run_count": 2,
+        "name": "bench_partials_intervals_tuple.AxisPartialsIntervalsTupleSuite.time_intervals_tuple",
+        "number": 0,
+        "param_names": [
+            "length",
+            "lane_count",
+            "axis",
+            "case",
+            "binding",
+            "tuple_mode"
+        ],
+        "params": [
+            [
+                "100",
+                "10000",
+                "1000000"
+            ],
+            [
+                "2",
+                "8"
+            ],
+            [
+                "0",
+                "1"
+            ],
+            [
+                "'Dense'",
+                "'Gapped'"
+            ],
+            [
+                "1",
+                "2"
+            ],
+            [
+                "1",
+                "2",
+                "3"
+            ]
+        ],
+        "repeat": 0,
+        "rounds": 2,
+        "sample_time": 0.01,
+        "timeout": 600,
+        "type": "time",
+        "unit": "seconds",
+        "version": "ae9723a4dfd511fec07a28868b93436c68e4be5538f7f78f4ee75fc841289f96",
+        "warmup_time": -1
+    },
+    "bench_partials_intervals_tuple.PartialsIntervalsTupleSuite.peakmem_intervals_tuple": {
+        "code": "class PartialsIntervalsTupleSuite:\n    @skip_params_if(\n        one_dimensional_skip,\n        os.getenv(\"QUICK_BENCHMARK\") == \"true\",\n    )\n    def peakmem_intervals_tuple(\n        self, length, gap_case, binding_value, tuple_mode_value\n    ):\n        return intervals_tuple(self.chain, self.binding, self.tuple_mode)\n\n    def setup(self, length, gap_case, binding_value, tuple_mode_value):\n        self.chain = _partial_chain_rows(length, 1, gap_case, binding_value)[0]\n        self.binding = binding_value\n        self.tuple_mode = tuple_mode_value",
+        "name": "bench_partials_intervals_tuple.PartialsIntervalsTupleSuite.peakmem_intervals_tuple",
+        "param_names": [
+            "length",
+            "case",
+            "binding",
+            "tuple_mode"
+        ],
+        "params": [
+            [
+                "100",
+                "10000",
+                "1000000"
+            ],
+            [
+                "'Dense'",
+                "'Gapped'"
+            ],
+            [
+                "1",
+                "2"
+            ],
+            [
+                "1",
+                "2",
+                "3"
+            ]
+        ],
+        "timeout": 600,
+        "type": "peakmemory",
+        "unit": "bytes",
+        "version": "08f1dcb946c5f4e673b3c0a8f93d0ff5703de2d8cd26372517d1f82bffe34e9a"
+    },
+    "bench_partials_intervals_tuple.PartialsIntervalsTupleSuite.time_intervals_tuple": {
+        "code": "class PartialsIntervalsTupleSuite:\n    @skip_params_if(\n        one_dimensional_skip,\n        os.getenv(\"QUICK_BENCHMARK\") == \"true\",\n    )\n    def time_intervals_tuple(self, length, gap_case, binding_value, tuple_mode_value):\n        intervals_tuple(self.chain, self.binding, self.tuple_mode)\n\n    def setup(self, length, gap_case, binding_value, tuple_mode_value):\n        self.chain = _partial_chain_rows(length, 1, gap_case, binding_value)[0]\n        self.binding = binding_value\n        self.tuple_mode = tuple_mode_value",
+        "min_run_count": 2,
+        "name": "bench_partials_intervals_tuple.PartialsIntervalsTupleSuite.time_intervals_tuple",
+        "number": 0,
+        "param_names": [
+            "length",
+            "case",
+            "binding",
+            "tuple_mode"
+        ],
+        "params": [
+            [
+                "100",
+                "10000",
+                "1000000"
+            ],
+            [
+                "'Dense'",
+                "'Gapped'"
+            ],
+            [
+                "1",
+                "2"
+            ],
+            [
+                "1",
+                "2",
+                "3"
+            ]
+        ],
+        "repeat": 0,
+        "rounds": 2,
+        "sample_time": 0.01,
+        "timeout": 600,
+        "type": "time",
+        "unit": "seconds",
+        "version": "cfa7d96df549e4d7131ae7aef4dcb044826302d9a7ed92318bad0d024e5e69a7",
         "warmup_time": -1
     },
     "bench_partials_order.PartialsAxisOrderSuite.peakmem_order": {
