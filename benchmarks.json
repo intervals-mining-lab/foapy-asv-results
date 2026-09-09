@@ -401,6 +401,88 @@
         "version": "82bf8f749474dd3ee043bd013bf41ed6d76c8e34043ed906e79105d56ba8c7db",
         "warmup_time": -1
     },
+    "bench_intervals_chain.AxisIntervalsChainSuite.peakmem_intervals_chain": {
+        "code": "class AxisIntervalsChainSuite:\n    @skip_params_if(axis_skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def peakmem_intervals_chain(self, length, record_width, axis, binding, chain_mode):\n        return intervals_chain(self.data, self.binding, self.chain_mode, axis=axis)\n\n    def setup(self, length, record_width, axis, binding, chain_mode):\n        self.data = records_case(length, record_width, axis)\n        self.binding = binding\n        self.chain_mode = chain_mode",
+        "name": "bench_intervals_chain.AxisIntervalsChainSuite.peakmem_intervals_chain",
+        "param_names": [
+            "length",
+            "record_width",
+            "axis",
+            "binding",
+            "chain_mode"
+        ],
+        "params": [
+            [
+                "100",
+                "10000",
+                "1000000"
+            ],
+            [
+                "2",
+                "8"
+            ],
+            [
+                "0",
+                "1"
+            ],
+            [
+                "1",
+                "2"
+            ],
+            [
+                "1",
+                "2"
+            ]
+        ],
+        "timeout": 600,
+        "type": "peakmemory",
+        "unit": "bytes",
+        "version": "271000c6ef975bf5bfd5d7c82d582dbf7bb30308c60cfe36c524bdabfdfb098f"
+    },
+    "bench_intervals_chain.AxisIntervalsChainSuite.time_intervals_chain": {
+        "code": "class AxisIntervalsChainSuite:\n    @skip_params_if(axis_skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def time_intervals_chain(self, length, record_width, axis, binding, chain_mode):\n        intervals_chain(self.data, self.binding, self.chain_mode, axis=axis)\n\n    def setup(self, length, record_width, axis, binding, chain_mode):\n        self.data = records_case(length, record_width, axis)\n        self.binding = binding\n        self.chain_mode = chain_mode",
+        "min_run_count": 2,
+        "name": "bench_intervals_chain.AxisIntervalsChainSuite.time_intervals_chain",
+        "number": 0,
+        "param_names": [
+            "length",
+            "record_width",
+            "axis",
+            "binding",
+            "chain_mode"
+        ],
+        "params": [
+            [
+                "100",
+                "10000",
+                "1000000"
+            ],
+            [
+                "2",
+                "8"
+            ],
+            [
+                "0",
+                "1"
+            ],
+            [
+                "1",
+                "2"
+            ],
+            [
+                "1",
+                "2"
+            ]
+        ],
+        "repeat": 0,
+        "rounds": 2,
+        "sample_time": 0.01,
+        "timeout": 600,
+        "type": "time",
+        "unit": "seconds",
+        "version": "47704e7d3649711bc75aa366c3ea49fc14e8ed47fb9d733247d7d9692c40922f",
+        "warmup_time": -1
+    },
     "bench_intervals_chain.IntervalsChainSuite.peakmem_intervals_chain": {
         "code": "class IntervalsChainSuite:\n    @skip_params_if(skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def peakmem_intervals_chain(self, length, case, b, cm):\n        return intervals_chain(self.data, self.binding, self.chain_mode)\n\n    def setup(self, length, case, b, cm):\n        if case == \"Best\":\n            self.data = best_case(length)\n        elif case == \"DNA\":\n            self.data = dna_case(length)\n        elif case == \"Normal\":\n            self.data = normal_case(length)\n        else:\n            self.data = worst_case(length)\n        self.binding = b\n        self.chain_mode = cm",
         "name": "bench_intervals_chain.IntervalsChainSuite.peakmem_intervals_chain",
@@ -871,6 +953,100 @@
         "type": "time",
         "unit": "seconds",
         "version": "bf3b241d0ab389e52b34892174a583b63980860a332c36f1b6c4aebe0f3dddd7",
+        "warmup_time": -1
+    },
+    "bench_partials_intervals_chain.PartialsAxisIntervalsChainSuite.peakmem_intervals_chain": {
+        "code": "class PartialsAxisIntervalsChainSuite:\n    @skip_params_if(axis_skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def peakmem_intervals_chain(\n        self, length, record_width, axis, case, binding, chain_mode\n    ):\n        return intervals_chain(self.data, self.binding, self.chain_mode, axis=axis)\n\n    def setup(self, length, record_width, axis, case, binding, chain_mode):\n        source = records_case(length, record_width, axis)\n        mask = whole_slice_mask(length, record_width, axis, case)\n        self.data = ma.masked_array(source, mask=mask)\n        self.binding = binding\n        self.chain_mode = chain_mode",
+        "name": "bench_partials_intervals_chain.PartialsAxisIntervalsChainSuite.peakmem_intervals_chain",
+        "param_names": [
+            "length",
+            "record_width",
+            "axis",
+            "case",
+            "binding",
+            "chain_mode"
+        ],
+        "params": [
+            [
+                "100",
+                "10000",
+                "1000000"
+            ],
+            [
+                "2",
+                "8"
+            ],
+            [
+                "0",
+                "1"
+            ],
+            [
+                "'Unmasked'",
+                "'Gapped'",
+                "'FullyMasked'"
+            ],
+            [
+                "1",
+                "2"
+            ],
+            [
+                "1",
+                "2"
+            ]
+        ],
+        "timeout": 600,
+        "type": "peakmemory",
+        "unit": "bytes",
+        "version": "487fe1578504fb2096d8feaa0bbc54b1cbd7c896411228f7b5a86dbaecb3d3c5"
+    },
+    "bench_partials_intervals_chain.PartialsAxisIntervalsChainSuite.time_intervals_chain": {
+        "code": "class PartialsAxisIntervalsChainSuite:\n    @skip_params_if(axis_skip, os.getenv(\"QUICK_BENCHMARK\") == \"true\")\n    def time_intervals_chain(\n        self, length, record_width, axis, case, binding, chain_mode\n    ):\n        intervals_chain(self.data, self.binding, self.chain_mode, axis=axis)\n\n    def setup(self, length, record_width, axis, case, binding, chain_mode):\n        source = records_case(length, record_width, axis)\n        mask = whole_slice_mask(length, record_width, axis, case)\n        self.data = ma.masked_array(source, mask=mask)\n        self.binding = binding\n        self.chain_mode = chain_mode",
+        "min_run_count": 2,
+        "name": "bench_partials_intervals_chain.PartialsAxisIntervalsChainSuite.time_intervals_chain",
+        "number": 0,
+        "param_names": [
+            "length",
+            "record_width",
+            "axis",
+            "case",
+            "binding",
+            "chain_mode"
+        ],
+        "params": [
+            [
+                "100",
+                "10000",
+                "1000000"
+            ],
+            [
+                "2",
+                "8"
+            ],
+            [
+                "0",
+                "1"
+            ],
+            [
+                "'Unmasked'",
+                "'Gapped'",
+                "'FullyMasked'"
+            ],
+            [
+                "1",
+                "2"
+            ],
+            [
+                "1",
+                "2"
+            ]
+        ],
+        "repeat": 0,
+        "rounds": 2,
+        "sample_time": 0.01,
+        "timeout": 600,
+        "type": "time",
+        "unit": "seconds",
+        "version": "4b8fe85983be62a4e5245d4a2f05af6fe6bd2cae26f0272e977ab9558bd3a681",
         "warmup_time": -1
     },
     "bench_partials_intervals_chain.PartialsIntervalsChainSuite.peakmem_intervals_chain": {
